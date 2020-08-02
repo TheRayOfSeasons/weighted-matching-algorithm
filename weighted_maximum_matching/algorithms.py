@@ -9,8 +9,8 @@ class Vertex:
     """
 
     def __init__(self, item, *args, **kwargs):
-        self.neigbors = set()
-        self.edges = set()
+        self.neigbors = []
+        self.edges = []
         self.item = item
 
     def __eq__(self, other):
@@ -53,8 +53,8 @@ class Vertex:
             :param edge: :type edge:
                 The reference to the edge that connects the two vertices.
         """
-        self.add_neighbor.update([other_vertex])
-        self.edges.update([edge])
+        self.neigbors.append(other_vertex)
+        self.edges.append(edge)
 
 
 class Edge:
@@ -203,7 +203,9 @@ class MatchingGraph:
         self.y_set = y_set
         self.x_set_vertex_class = x_set_vertex_class
         self.y_set_vertex_class = y_set_vertex_class
-        self.matches = set()
+        self.edge_class = edge_class
+        self.edges = []
+        self.matches = []
         self.according_to_x_set = according_to_x_set
         self.vertex_attr_a = ['vertex_1', 'vertex_2'][according_to_x_set]
         self.vertex_attr_b = ['vertex_2', 'vertex_1'][according_to_x_set]
@@ -422,7 +424,7 @@ class MatchingGraph:
             :param condition: :type tuple:
                 A tuple of boolean values.
         """
-        return len([b for conditions in result if b])
+        return len([condition for condition in conditions if condition])
 
     def _build_edges(self, *args, **kwargs):
         """
@@ -440,15 +442,15 @@ class MatchingGraph:
                     self._check_match(*vertices, *args, **kwargs))
                 if is_match:
                     edge_args = vertices + (compatibility,)
-                    self.edges.update([self.edge_class(*edge_args)])
+                    self.edges.append(self.edge_class(*edge_args))
 
-    def assess_match(self, vertex, *args, **kwargs):
+    def evaluate_match(self, vertex, *args, **kwargs):
         """
         An abstract method for assesing an edge as an optimal match.
         """
         optimal_match = vertex.heaviest_edge
         if optimal_match:
-            self.matches.update([optimal_match])
+            self.matches.append(optimal_match)
 
     def match(self, *args, **kwargs):
         """
@@ -456,6 +458,7 @@ class MatchingGraph:
         """
         adherence = self.according_to_x_set
         vertices = [self.x_vertices, self.y_vertices][adherence]
+        import pdb; pdb.set_trace()
         for vertex in vertices:
-            self.assess_match(vertex, *args, **kwargs)
+            self.evaluate_match(vertex, *args, **kwargs)
         return self.matches
