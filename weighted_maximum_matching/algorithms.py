@@ -201,6 +201,8 @@ class MatchingGraph:
             *args, **kwargs):
         self.x_set = x_set
         self.y_set = y_set
+        self.x_set_vertex_class = x_set_vertex_class
+        self.y_set_vertex_class = y_set_vertex_class
         self.matches = set()
         self.according_to_x_set = according_to_x_set
         self.vertex_attr_a = ['vertex_1', 'vertex_2'][according_to_x_set]
