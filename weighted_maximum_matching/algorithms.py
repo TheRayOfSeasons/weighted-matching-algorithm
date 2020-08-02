@@ -458,7 +458,6 @@ class MatchingGraph:
         """
         adherence = self.according_to_x_set
         vertices = [self.x_vertices, self.y_vertices][adherence]
-        import pdb; pdb.set_trace()
         for vertex in vertices:
             self.evaluate_match(vertex, *args, **kwargs)
         return self.matches
