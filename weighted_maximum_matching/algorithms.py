@@ -190,8 +190,8 @@ class MatchingGraph:
 
     def __init__(
             self, x_set, y_set,
-            x_vertex_class=Vertex,
-            y_vertex_class=Vertex,
+            x_set_vertex_class=Vertex,
+            y_set_vertex_class=Vertex,
             edge_class=Edge,
             x_extra_vertex_initalization_values={},
             y_extra_vertex_initalization_values={},
